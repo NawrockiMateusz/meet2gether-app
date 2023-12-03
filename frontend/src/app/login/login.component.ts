@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -22,4 +23,10 @@ import { RouterLink } from '@angular/router';
 })
 export class LoginComponent {
   hide = true;
+
+  saySomething = inject(LoginService);
+
+  sayHello() {
+    this.saySomething.writeTestOnConsole();
+  }
 }
