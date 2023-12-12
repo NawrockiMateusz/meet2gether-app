@@ -1,23 +1,14 @@
-<mat-toolbar color="primary">
-    <mat-icon class="logo">groups</mat-icon>
-    <span>Meet2Gether</span>
-    <span class="spacer"></span>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-            <mat-icon>settings</mat-icon>
-            <span>Settings</span>
-        </button>
-        <button mat-menu-item>
-            <mat-icon>mail</mat-icon>
-            <span>Contact</span>
-        </button>
-        <button mat-menu-item class="logoutButton">
-            <mat-icon [ngStyle]="{'color': 'red'}">logout</mat-icon>
-            <span>Logout</span>
-        </button>
+<app-nav></app-nav>
+<main class="main">
+    <section class="main__page main__page--right">
+        <img class="main__pagePhoto"
+            src="https://images.unsplash.com/photo-1549451371-64aa98a6f660?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="books">
+    </section>
 
-    </mat-menu>
-</mat-toolbar>
+    <section class="main__page main__page--left">
+        <p class="main__pageText">Nudzisz się? Chciałbyś gdzieś wyskoczyć? Poszukaj wydarzeń w Twoim mieście lub
+            zorganizuj własne! </p>
+        <button class="main__pageButton" routerLink="../replacement">Szukaj</button>
+    </section>
+</main>
