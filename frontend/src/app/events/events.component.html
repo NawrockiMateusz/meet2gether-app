@@ -21,9 +21,11 @@
             <div class="card-details">
                 <mat-card-header>
                     <mat-card-title>{{ event.nazwa }}</mat-card-title>
+                    <mat-card-subtitle>{{ event.lokalizacja }}, {{ event.data | date:'longDate' }}</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
-                    <p>{{ event.opis }}</p>
+                    <p>Kategoria: {{ getCategoryNameById(event.categoryId) }}</p>
+                    <p>Opis: {{event.opis}}</p>
                 </mat-card-content>
             </div>
         </div>
