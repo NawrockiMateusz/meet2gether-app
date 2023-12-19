@@ -1,5 +1,10 @@
-.spacer {
-  flex: 1 1 auto;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+.logoContainer {
+  display: flex;
+  align-items: center;
 }
 .logo {
   margin-right: 10px;
