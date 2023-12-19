@@ -1,31 +1,52 @@
 <div class="search-container">
     <mat-form-field appearance="fill">
         <mat-label>Wyszukaj</mat-label>
-        <input matInput placeholder="Wpisz szukaną frazę">
+        <input matInput [(ngModel)]="searchQuery" (ngModelChange)="filterEvents()" placeholder="Wpisz szukaną frazę">
+        <mat-icon matSuffix (click)="searchQuery = ''; filterEvents()">clear</mat-icon>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
         <mat-label>Wybierz kategorię</mat-label>
-        <mat-select>
-            <mat-option value="kat1">Kategoria 1</mat-option>
-            <mat-option value="kat2">Kategoria 2</mat-option>
+        <mat-select [(value)]="selectedCategory" (selectionChange)="filterEvents()">
+            <mat-option *ngFor="let category of eventsService.categoriesMock" [value]="category.id">
+                {{ category.name }}
+            </mat-option>
         </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Lokalizacja</mat-label>
+        <input matInput [(ngModel)]="searchLocation" (ngModelChange)="filterEvents()" placeholder="Wpisz lokalizację">
+        <mat-icon matSuffix (click)="searchLocation = ''; filterEvents()">clear</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Data od</mat-label>
+        <input matInput [matDatepicker]="picker1" [(ngModel)]="searchDateStart" (dateChange)="filterEvents()">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Data do</mat-label>
+        <input matInput [matDatepicker]="picker2" [(ngModel)]="searchDateEnd" (dateChange)="filterEvents()">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
 </div>
 <div class="events-list">
-    <mat-card *ngFor="let event of mockEventy" class="event-card">
+    <mat-card *ngFor="let event of filteredEvents" class="event-card">
         <div class="card-content">
             <div class="card-image">
-                <img [src]="event.imageUrl" alt="{{ event.nazwa }}">
+                <img [src]="getCategoryImageById(event.categoryId)" alt="{{ getCategoryNameById(event.categoryId) }}">
             </div>
             <div class="card-details">
                 <mat-card-header>
-                    <mat-card-title>{{ event.nazwa }}</mat-card-title>
-                    <mat-card-subtitle>{{ event.lokalizacja }}, {{ event.data | date:'longDate' }}</mat-card-subtitle>
+                    <mat-card-title>{{ event.name }}</mat-card-title>
+                    <mat-card-subtitle>{{ event.location }}, {{ event.date | date:'longDate' }}</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
                     <p>Kategoria: {{ getCategoryNameById(event.categoryId) }}</p>
-                    <p>Opis: {{event.opis}}</p>
+                    <p>Opis: {{ event.description }}</p>
                 </mat-card-content>
             </div>
         </div>

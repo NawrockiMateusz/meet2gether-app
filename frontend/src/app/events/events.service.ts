@@ -1,9 +1,35 @@
 import { Injectable } from '@angular/core';
+import { Category, Event } from './events.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventsService {
+  categoriesMock: Category[] = [
+    {
+      id: 1,
+      name: 'Konferencja',
+      image: 'assets/images/konferencja.jpg',
+    },
+    { id: 2, name: 'Warsztat', image: 'assets/images/warsztat.jpg' },
+  ];
 
-  constructor() { }
+  eventsMock: Event[] = [
+    {
+      id: 1,
+      categoryId: 1,
+      name: 'Angular Connect',
+      location: 'Londyn',
+      date: new Date(2023, 9, 23),
+      description: 'Lorem ipsum ...',
+    },
+    {
+      id: 2,
+      categoryId: 2,
+      name: 'Warsztaty Front-endowe',
+      location: 'Kraków',
+      date: new Date(2023, 10, 14),
+      description: 'Lorem ipsum ...',
+    },
+  ];
 }
