@@ -32,4 +32,22 @@ export class EventsService {
       description: 'Lorem ipsum ...',
     },
   ];
+
+  addEvent(eventData) {
+    const newEvent: Event = {
+      id: this.generateId(),
+      ...eventData,
+    };
+    this.eventsMock.push(newEvent);
+  }
+
+  private generateId(): number {
+    return this.eventsMock.length > 0
+      ? Math.max(...this.eventsMock.map((e) => e.id)) + 1
+      : 1;
+  }
+
+  getCategories(): Category[] {
+    return this.categoriesMock;
+  }
 }
