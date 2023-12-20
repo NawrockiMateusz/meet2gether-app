@@ -1,1 +1,35 @@
 <app-nav></app-nav>
+<div class="event-form">
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+            <mat-label>Nazwa eventu</mat-label>
+            <input matInput formControlName="name" placeholder="Wprowadź nazwę eventu">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Kategoria</mat-label>
+            <mat-select formControlName="categoryId">
+                <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Lokalizacja</mat-label>
+            <input matInput formControlName="location" placeholder="Wpisz lokalizację">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Data</mat-label>
+            <input matInput formControlName="date" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Opis</mat-label>
+            <textarea matInput formControlName="description" placeholder="Wprowadź opis"></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Dodaj Event</button>
+    </form>
+</div>
