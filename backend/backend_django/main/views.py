@@ -48,10 +48,25 @@ def get_all_events(request):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def get_event(request,pk):
+    permission_classes = (IsAuthenticated,)
+    event = Event.objects.filter(id=pk)
+    serializer = EventSerializer(event)
+    return Response(serializer.data)
+
+
 @api_view(['DELETE'])
 def delete_all_events(request):
     permission_classes = (IsAuthenticated,)
     Event.objects.all().delete()
+    return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['DELETE'])
+def delete_event(request,pk):
+    permission_classes = (IsAuthenticated,)
+    Event.objects.filter(id=pk).delete()
     return Response(status=status.HTTP_200_OK)
 
 
