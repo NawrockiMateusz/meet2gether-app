@@ -17,6 +17,9 @@ import { Category } from '../events/events.interface';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthGuard } from '../auth.guard';
+import { LoginService } from '../login/login.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-event',
@@ -33,7 +36,9 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
+    HttpClientModule,
   ],
+  providers: [LoginService, AuthGuard],
   templateUrl: './create-event.component.html',
   styleUrl: './create-event.component.scss',
 })

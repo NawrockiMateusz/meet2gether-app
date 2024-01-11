@@ -29,7 +29,6 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatSnackBarModule,
     HttpClientModule,
   ],
-  providers: [LoginService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
