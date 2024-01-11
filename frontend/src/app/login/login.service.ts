@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  constructor(public http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   loginUser(
     userData: Partial<{ username: string; email: string; password: string }>
@@ -24,6 +25,14 @@ export class LoginService {
   }
 
   logout() {
-    localStorage.removeItem('username');
+    this.http.post('http://127.0.0.1:8000/api/logout/', {}).subscribe(
+      () => {
+        localStorage.removeItem('username');
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Wystąpił błąd podczas wylogowania', error);
+      }
+    );
   }
 }

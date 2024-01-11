@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { LoginService } from './login/login.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,9 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  constructor(private loginService: LoginService) {}
+  ngOnInit() {}
+
   title = 'frontend';
 }
