@@ -4,7 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { RegisterService } from './register.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -50,10 +50,14 @@ export class RegisterComponent {
             duration: 3000,
           });
         },
-        (error) => {
-          this.snackBar.open(`Wystąpił błąd: ${error}`, 'Zamknij', {
-            duration: 3000,
-          });
+        () => {
+          this.snackBar.open(
+            `Wystąpił błąd z rejestracją, sprawdź dane.`,
+            'Zamknij',
+            {
+              duration: 3000,
+            }
+          );
         }
       );
     } else {
