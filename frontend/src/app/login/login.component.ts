@@ -6,6 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { LoginService } from './login.service';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +23,7 @@ import { LoginService } from './login.service';
     MatIconModule,
     MatButtonModule,
     RouterLink,
+    ReactiveFormsModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -24,9 +31,11 @@ import { LoginService } from './login.service';
 export class LoginComponent {
   hide = true;
 
-  saySomething = inject(LoginService);
+  loginForm = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+  });
 
-  sayHello() {
-    this.saySomething.writeTestOnConsole();
-  }
+  submit() {}
 }
