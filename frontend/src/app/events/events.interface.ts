@@ -1,13 +1,11 @@
 export interface Category {
-  id: number;
   name: string;
-  image: string;
 }
 export interface Event {
   id: number;
-  categoryId: number;
-  name: string;
-  location: string;
+  title: string;
+  category: number;
   date: Date;
   description: string;
+  location: string;
 }

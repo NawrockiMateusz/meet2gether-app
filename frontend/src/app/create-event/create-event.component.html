@@ -2,14 +2,15 @@
 <div class="event-form">
     <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill">
-            <mat-label>Nazwa eventu</mat-label>
-            <input matInput formControlName="name" placeholder="Wprowadź nazwę eventu">
+            <mat-label>Tytuł</mat-label>
+            <input matInput formControlName="title" placeholder="Wprowadź nazwę eventu">
         </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label>Kategoria</mat-label>
-            <mat-select formControlName="categoryId">
-                <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
+            <mat-select formControlName="category">
+                <mat-option *ngFor="let category of categories" [value]="category.name">{{
+                    category.name }}</mat-option>
             </mat-select>
         </mat-form-field>
 

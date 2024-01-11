@@ -8,7 +8,7 @@
     <mat-form-field appearance="fill">
         <mat-label>Wybierz kategorię</mat-label>
         <mat-select [(value)]="selectedCategory" (selectionChange)="filterEvents()">
-            <mat-option *ngFor="let category of eventsService.categoriesMock" [value]="category.id">
+            <mat-option *ngFor="let category of eventsService.categories" [value]="category.name">
                 {{ category.name }}
             </mat-option>
         </mat-select>
@@ -37,15 +37,15 @@
     <mat-card *ngFor="let event of filteredEvents" class="event-card">
         <div class="card-content">
             <div class="card-image">
-                <img [src]="getCategoryImageById(event.categoryId)" alt="{{ getCategoryNameById(event.categoryId) }}">
+                <img src="../../assets/images/{{event.category}}.jpg" alt="{{ event.category }}">
             </div>
             <div class="card-details">
                 <mat-card-header>
-                    <mat-card-title>{{ event.name }}</mat-card-title>
+                    <mat-card-title>{{ event.title }}</mat-card-title>
                     <mat-card-subtitle>{{ event.location }}, {{ event.date | date:'longDate' }}</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
-                    <p>Kategoria: {{ getCategoryNameById(event.categoryId) }}</p>
+                    <p>Kategoria: {{ event.category }}</p>
                     <p>Opis: {{ event.description }}</p>
                 </mat-card-content>
             </div>

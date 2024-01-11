@@ -20,6 +20,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthGuard } from '../auth.guard';
 import { LoginService } from '../login/login.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-event',
@@ -43,37 +44,45 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './create-event.component.scss',
 })
 export class CreateEventComponent implements OnInit {
-  eventForm: FormGroup;
+  eventForm = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    category: new FormControl('', [Validators.required]),
+    date: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
+    location: new FormControl('', [Validators.required]),
+  });
+
   categories: Category[] = [];
 
   constructor(
     private eventsService: EventsService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.categories = this.eventsService.getCategories();
-    this.eventForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      categoryId: new FormControl('', Validators.required),
-      location: new FormControl('', Validators.required),
-      date: new FormControl('', Validators.required),
-      description: new FormControl(''),
-    });
   }
 
   onSubmit() {
     if (this.eventForm.valid) {
-      this.eventsService.addEvent(this.eventForm.value);
-      this.eventForm.reset();
-      Object.keys(this.eventForm.controls).forEach((key) => {
-        this.eventForm.get(key).setErrors(null);
-        this.eventForm.get(key).markAsPristine();
-        this.eventForm.get(key).markAsUntouched();
-      });
-      this.snackBar.open('Event added successfully!', 'Close', {
-        duration: 3000,
-      });
+      this.eventsService.addEvent(this.eventForm.value).subscribe(
+        (response) => {
+          this.snackBar.open('Event utworzony!', 'Zamknij', {
+            duration: 1000,
+          });
+          setTimeout(() => {
+            this.router.navigate(['/home']);
+          }, 1000);
+        },
+        () => {
+          this.snackBar.open(`Wystąpił błąd`, 'Zamknij', {
+            duration: 3000,
+          });
+        }
+      );
+    } else {
+      this.eventForm.markAllAsTouched();
     }
   }
 }

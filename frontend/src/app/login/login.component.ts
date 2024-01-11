@@ -51,7 +51,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.loginService.loginUser(this.loginForm.value).subscribe(
         (response) => {
-          this.snackBar.open('Logowaine udane!', 'Zamknij', {
+          this.snackBar.open('Logowanie udane!', 'Zamknij', {
             duration: 1000,
           });
           setTimeout(() => {

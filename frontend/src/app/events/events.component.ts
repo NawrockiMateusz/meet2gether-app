@@ -31,7 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './events.component.scss',
 })
 export class EventsComponent {
-  mockEventy: Event[] = [];
+  events: Event[] = [];
   filteredEvents: Event[] = [];
   searchQuery: string = '';
   searchLocation: string = '';
@@ -43,26 +43,14 @@ export class EventsComponent {
   constructor(public eventsService: EventsService) {}
 
   ngOnInit(): void {
-    this.mockEventy = this.eventsService.eventsMock;
-    this.filteredEvents = this.mockEventy;
-  }
-
-  getCategoryNameById(categoryId: number): string {
-    const category = this.eventsService.categoriesMock.find(
-      (c) => c.id === categoryId
-    );
-    return category ? category.name : 'Nieznana kategoria';
-  }
-
-  getCategoryImageById(categoryId: number): string {
-    const category = this.eventsService.categoriesMock.find(
-      (c) => c.id === categoryId
-    );
-    return category ? category.image : 'default-image-path.jpg';
+    this.eventsService.getEvents().subscribe((data) => {
+      this.events = data;
+      this.filteredEvents = data;
+    });
   }
 
   filterEvents(): void {
-    this.filteredEvents = this.eventsService.eventsMock.filter((event) => {
+    this.filteredEvents = this.events.filter((event) => {
       const eventDate = new Date(event.date);
       const startDate = this.searchDateStart
         ? new Date(this.searchDateStart)
@@ -71,9 +59,9 @@ export class EventsComponent {
       return (
         (!this.searchDateStart || eventDate >= startDate) &&
         (!this.searchDateEnd || eventDate <= endDate) &&
-        event.name.toLowerCase().includes(this.searchQuery.toLowerCase()) &&
+        event.title.toLowerCase().includes(this.searchQuery.toLowerCase()) &&
         (this.selectedCategory == null ||
-          event.categoryId === this.selectedCategory) &&
+          event.category === this.selectedCategory) &&
         event.location
           .toLowerCase()
           .includes(this.searchLocation.toLowerCase()) &&
