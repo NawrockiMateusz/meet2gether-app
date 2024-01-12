@@ -18,6 +18,13 @@ export class EventsService {
       name: 'Konferencja',
     },
     { name: 'IT' },
+    { name: 'Nauka' },
+    { name: 'Jedzenie' },
+    { name: 'Imprezka' },
+    { name: 'Spacer' },
+    { name: 'Hackathon' },
+    { name: 'Paintball' },
+    { name: 'Gaming' },
   ];
 
   addEvent(eventData: any): Observable<any> {

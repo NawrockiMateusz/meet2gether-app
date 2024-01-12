@@ -7,7 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { EventsService } from './events.service';
-import { Event } from './events.interface';
+import { Category, Event } from './events.interface';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -42,11 +42,26 @@ export class EventsComponent {
 
   constructor(public eventsService: EventsService) {}
 
+  categories = [];
+  availableCategories: Category[] = [];
+
   ngOnInit(): void {
+    this.categories = this.eventsService.getCategories();
     this.eventsService.getEvents().subscribe((data) => {
       this.events = data;
       this.filteredEvents = data;
+      this.availableCategories = this.getAvailableCategories();
     });
+    this.categories = this.eventsService.getCategories();
+  }
+
+  getAvailableCategories(): Category[] {
+    const usedCategoryNames = new Set(
+      this.events.map((event) => event.category)
+    );
+    return this.categories.filter((category) =>
+      usedCategoryNames.has(category.name)
+    );
   }
 
   filterEvents(): void {
@@ -56,10 +71,12 @@ export class EventsComponent {
         ? new Date(this.searchDateStart)
         : null;
       const endDate = this.searchDateEnd ? new Date(this.searchDateEnd) : null;
+      const searchLower = this.searchQuery.toLowerCase();
       return (
         (!this.searchDateStart || eventDate >= startDate) &&
         (!this.searchDateEnd || eventDate <= endDate) &&
-        event.title.toLowerCase().includes(this.searchQuery.toLowerCase()) &&
+        (event.title.toLowerCase().includes(searchLower) ||
+          event.description.toLowerCase().includes(searchLower)) &&
         (this.selectedCategory == null ||
           event.category === this.selectedCategory) &&
         event.location

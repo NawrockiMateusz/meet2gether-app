@@ -1,0 +1,10 @@
+* {
+  text-align: center;
+}
+.link {
+  color: rgb(0, 88, 211);
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+  }
+}

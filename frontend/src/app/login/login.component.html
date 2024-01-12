@@ -1,4 +1,4 @@
-<div class="registration" [formGroup]="loginForm">
+<div class="registration" [formGroup]="loginForm" (keyup.enter)="submit()">
     <h1>Login</h1>
     <mat-form-field appearance="fill">
         <mat-label>Nickname</mat-label>

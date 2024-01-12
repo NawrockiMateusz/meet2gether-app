@@ -8,7 +8,8 @@
     <mat-form-field appearance="fill">
         <mat-label>Wybierz kategorię</mat-label>
         <mat-select [(value)]="selectedCategory" (selectionChange)="filterEvents()">
-            <mat-option *ngFor="let category of eventsService.categories" [value]="category.name">
+            <mat-option [value]="null">Wszystkie</mat-option>
+            <mat-option *ngFor="let category of availableCategories" [value]="category.name">
                 {{ category.name }}
             </mat-option>
         </mat-select>
