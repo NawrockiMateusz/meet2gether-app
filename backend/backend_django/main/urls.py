@@ -17,5 +17,5 @@ urlpatterns = [
     path('events', get_all_events, name='List events'),
     path('events', delete_all_events, name='Delete events'),
     path('events/<int:pk>', get_event, name='Get event by id'),
-    path('events/<int:pk>', delete_event, name='Delete event with given id'),
+    path('delete_event/<int:pk>', delete_event, name='Delete event with given id'),
 ]
