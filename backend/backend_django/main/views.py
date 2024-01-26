@@ -1,4 +1,3 @@
-import django_filters.rest_framework
 from django.contrib.auth import authenticate, login
 from .serializers import UserSerializer
 from django.contrib.auth import logout
