@@ -11,6 +11,14 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import EventSerializer
 
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Event
+
+
+
+
 @api_view(['POST'])
 def create_event(request):
     permission_classes = (IsAuthenticated,)
@@ -48,11 +56,30 @@ def get_all_events(request):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def get_event(request,pk):
+    permission_classes = (IsAuthenticated,)
+    event = Event.objects.filter(id=pk)
+    serializer = EventSerializer(event)
+    return Response(serializer.data)
+
+
 @api_view(['DELETE'])
 def delete_all_events(request):
     permission_classes = (IsAuthenticated,)
     Event.objects.all().delete()
     return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['DELETE'])
+def delete_event(request, pk):
+    try:
+        permission_classes = (IsAuthenticated,)
+        event = Event.objects.get(pk=pk)
+        event.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    except Event.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['POST'])
