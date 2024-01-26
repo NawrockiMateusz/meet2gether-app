@@ -18,13 +18,13 @@ export class EventsService {
       name: 'Konferencja',
     },
     { name: 'IT' },
-    { name: 'Nauka' },
-    { name: 'Jedzenie' },
-    { name: 'Imprezka' },
-    { name: 'Spacer' },
-    { name: 'Hackathon' },
-    { name: 'Paintball' },
-    { name: 'Gaming' },
+    { name: 'nauka' },
+    { name: 'jedzenie' },
+    { name: 'imprezka' },
+    { name: 'spacer' },
+    { name: 'hackathon' },
+    { name: 'paintball' },
+    { name: 'gaming' },
   ];
 
   addEvent(eventData: any): Observable<any> {
@@ -33,5 +33,10 @@ export class EventsService {
 
   getCategories() {
     return this.categories;
+  }
+
+  deleteEvent(eventId: number): Observable<any> {
+    const url = `http://127.0.0.1:8000/api/delete_event/${eventId}`;
+    return this.http.delete(url);
   }
 }

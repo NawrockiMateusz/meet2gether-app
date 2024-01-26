@@ -37,8 +37,8 @@
 <div class="events-list">
     <mat-card *ngFor="let event of filteredEvents" class="event-card">
         <div class="card-content">
-            <div class="card-image">
-                <img src="../../assets/images/{{event.category}}.jpg" alt="{{ event.category }}">
+            <div class="card-image image-container">
+                <img src="../../assets/images/{{event.category}}.jpg" alt="{{ event.category }}" class="image">
             </div>
             <div class="card-details">
                 <mat-card-header>
@@ -49,6 +49,9 @@
                     <p>Kategoria: {{ event.category }}</p>
                     <p>Opis: {{ event.description }}</p>
                 </mat-card-content>
+            </div>
+            <div class="card-actions">
+                <button mat-button color="warn" (click)="deleteEvent(event.id)">Usuń</button>
             </div>
         </div>
     </mat-card>

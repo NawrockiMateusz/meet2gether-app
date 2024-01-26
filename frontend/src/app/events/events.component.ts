@@ -11,6 +11,7 @@ import { Category, Event } from './events.interface';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-events',
@@ -26,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
+    MatButtonModule,
   ],
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss',
@@ -85,6 +87,18 @@ export class EventsComponent {
         (this.searchDate === '' ||
           new Date(event.date).toISOString().split('T')[0] === this.searchDate)
       );
+    });
+  }
+  deleteEvent(eventId: number): void {
+    this.eventsService.deleteEvent(eventId).subscribe({
+      next: (response) => {
+        this.filteredEvents = this.filteredEvents.filter(
+          (event) => event.id !== eventId
+        );
+      },
+      error: (error) => {
+        console.error('There was an error deleting the event', error);
+      },
     });
   }
 }
