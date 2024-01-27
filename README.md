@@ -11,10 +11,7 @@ Dostępne dla uprawnionych użytkowników w Trello: [Link do Trello](https://tre
 ## Struktura bazy danych
 
 Struktura bazy danych (tabele, relacje, funkcje, triggery) odpowiada załączonym źródłom:
-createSchema.sql
-createTables.sql
-preventInvalidEmail.sql
-preventPlainPassword.sql
+createSchema.sql, createTables.sql, preventInvalidEmail.sql i preventPlainPassword.sql
 
 ## Użycie
 
